@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  main-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: ./.env
+    environment:
+      - APP_PORT=3000
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/usr/src/main-backend

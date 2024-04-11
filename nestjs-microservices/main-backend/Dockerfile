@@ -1,7 +1,7 @@
 FROM node:18-alpine as builder
 
 # Create app directory
-ENV HOME=/usr/src1/module-second
+ENV HOME=usr/src/main-backend
 
 WORKDIR ${HOME}
 
@@ -12,7 +12,5 @@ RUN yarn
 COPY . .
 
 EXPOSE 3000
-
-EXPOSE 8878
 
 CMD ["yarn", "start"]

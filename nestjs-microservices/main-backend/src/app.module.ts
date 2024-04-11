@@ -9,13 +9,13 @@ import { AppService } from './app.service';
       {
         name: 'MODULE_FIRST',
         transport: Transport.TCP,
-        options: { port: 3002 },
+        options: { port: 8877 },
 
       },
       {
         name: 'MODULE_SECOND',
         transport: Transport.TCP,
-        options: { port: 3001 },
+        options: { port: 8878 },
       },
     ]),
   ],
