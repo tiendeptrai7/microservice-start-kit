@@ -4,24 +4,6 @@ version: 2.1
 orbs:
   node: circleci/node@5
 jobs:
-  # test-node:
-    # Install node dependencies and run tests
-    # executor: node/default
-    # working_directory: ~/project/nestjs-microservices/main-backend
-    # environment:
-    #   JEST_JUNIT_OUTPUT_DIR: ./test-results/
-    # steps:
-    #   - checkout:
-    #       path: ~/project
-    #   - node/install-packages:
-    #       pkg-manager: yarn
-    #   - run:
-    #       command: yarn add jest-junit --ignore-workspace-root-check
-    #   - run:
-    #       name: Run tests
-    #       command: yarn run test --ci --runInBand --reporters=default --reporters=jest-junit
-    #   - store_test_results:
-    #       path: ./test-results/
   build-node:
     # Build node project
     executor: node/default
@@ -55,10 +37,7 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      # - test-node
-      - build-node:
-          # requires:
-          #   - test-node
+      - build-node
     # - deploy:
     #     requires:
     #       - build-node
