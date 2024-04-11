@@ -1,0 +1,16 @@
+FROM node:18-alpine as builder
+
+# Create app directory
+ENV HOME=/nestjs-microservices/module-first
+WORKDIR ${HOME}
+
+# Copy contents from the main-backend directory to /usr/src/app
+COPY module-first/package.json module-first/yarn.lock ./
+
+RUN yarn
+
+COPY module-first/ .
+
+EXPOSE 3001
+
+CMD ["yarn", "start"]
