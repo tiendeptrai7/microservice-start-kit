@@ -1,0 +1,51 @@
+version: '3.4'
+
+services:
+
+  main-backend:
+    build:
+      context: .
+      dockerfile: ./main-backend/Dockerfile
+    env_file: ./main-backend/.env
+    environment:
+      - APP_PORT=3000
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/usr/main-backend
+    networks:
+      - my_network
+    depends_on:
+      - module-second
+
+  module-second:
+    build:
+      context: .
+      dockerfile: ./module-second/Dockerfile
+    env_file: ./module-second/.env
+    environment:
+      - APP_PORT=8878
+    ports:
+      - 8878:8878
+    volumes:
+      - ./src:/usr1/module-second
+    networks:
+      - my_network
+
+  module-first:
+    build:
+      context: .
+      dockerfile: ./module-first/Dockerfile
+    env_file: ./module-first/.env
+    environment:
+      - APP_PORT=8876
+    ports:
+      - 8876:8876
+    volumes:
+      - ./src:/usr/module-first
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

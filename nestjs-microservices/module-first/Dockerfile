@@ -5,14 +5,13 @@ ENV HOME=/usr/src/module-first
 
 WORKDIR ${HOME}
 
-COPY package.json yarn.lock ./
+COPY ./module-first/package.json ./module-first/yarn.lock ./
 
 RUN yarn
 
-COPY . .
+COPY ./module-first .
 
-EXPOSE 3000
-
-EXPOSE 8877
+EXPOSE 8875
+EXPOSE 8876
 
 CMD ["yarn", "start"]
