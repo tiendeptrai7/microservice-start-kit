@@ -1,7 +1,7 @@
 FROM node:18-alpine as builder
 
 # Create app directory
-ENV HOME=/usr1/module-second
+ENV HOME=/usr/module-second
 
 WORKDIR ${HOME}
 

@@ -28,7 +28,7 @@ services:
     ports:
       - 8878:8878
     volumes:
-      - ./src:/usr1/module-second
+      - ./src:/usr/module-second
     networks:
       - my_network
 
@@ -58,6 +58,8 @@ services:
       MYSQL_TCP_PORT: $RDS_PORT
     ports:
       - $RDS_PORT:$RDS_PORT
+    logging:
+      driver: none
     networks:
       - my_network
     command: mysqld --innodb_use_native_aio=0 --default-authentication-plugin=caching_sha2_password --sql_mode=""
