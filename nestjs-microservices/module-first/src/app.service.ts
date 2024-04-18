@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserEvent } from './create-user.event';
+import { UsersRepository } from './repositories/users.repository';
 
 @Injectable()
 export class AppService {
+  constructor(private userRepository: UsersRepository) {}
   getHello(): string {
     return 'Hello World!';
   }
