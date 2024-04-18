@@ -17,8 +17,14 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
+    "typeorm": "ts-node ./node_modules/typeorm/cli",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migrations:up": "yarn run typeorm migration:run -d ./src/configs/typeOrm.config.ts",
+    "migration:generate": "yarn run typeorm -d ./src/configs/typeOrm.config.ts migration:generate ./src/migrations/$npm_config_name",
+    "migration:create": "yarn run typeorm migration:create ./src/migrations/$npm_config_name",
+    "migration:down": "yarn run typeorm -d ./src/configs/typeOrm.config.ts migration:revert",
+    "generate-entity-from-db": "typeorm-model-generator -h 127.0.0.1 -d TienPT -p 3308 -u TienPT -x 123456asdf -e mysql"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -26,12 +32,15 @@
     "@nestjs/microservices": "^8.2.4",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^10.0.2",
+    "dotenv": "^16.4.5",
     "mysql2": "^3.9.6",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.20",
-    "typeorm-transactional": "^0.5.0"
+    "typeorm-model-generator": "^0.4.6",
+    "typeorm-transactional": "^0.5.0",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
