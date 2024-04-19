@@ -12,7 +12,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./src:/usr/main-backend
+      - ./main-backend:/usr/main-backend
     networks:
       - my_network
     depends_on:
@@ -28,7 +28,7 @@ services:
     ports:
       - 8878:8878
     volumes:
-      - ./src:/usr/module-second
+      - ./module-second:/usr/module-second
     networks:
       - my_network
 
@@ -42,7 +42,7 @@ services:
     ports:
       - 8876:8876
     volumes:
-      - ./src:/usr/module-first
+      - ./module-first:/usr/module-first
     networks:
       - my_network
 
