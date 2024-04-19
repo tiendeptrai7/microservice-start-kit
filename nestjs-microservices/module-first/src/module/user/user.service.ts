@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UsersRepository } from './repositories/users.repository';
+import { UsersRepository } from '../../repositories/users.repository';
 
 @Injectable()
-export class AppService {
+export class UserService {
   constructor(private userRepository: UsersRepository) {}
   getHello(): string {
     return 'Hello World!';

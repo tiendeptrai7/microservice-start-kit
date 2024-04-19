@@ -7,6 +7,8 @@ import { initializeTransactionalContext } from 'typeorm-transactional';
 async function bootstrap() {
   initializeTransactionalContext();
   const app = await NestFactory.create(AppModule);
+
+  // microservice using TCP
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
@@ -16,7 +18,11 @@ async function bootstrap() {
       host: '::',
     },
   });
-  await app.startAllMicroservices();
+
+  // rest api
   await app.listen(8875);
+
+  await app.startAllMicroservices();
+
 }
 bootstrap();

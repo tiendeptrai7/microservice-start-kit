@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import dbConfig from './configs/mySql';
 import dataSource from './configs/typeOrm.config';
 import { addTransactionalDataSource } from 'typeorm-transactional';
+import { UserModule } from './module/user/user.module';
+import { UserController } from './module/user/user.controller';
+import { UserService } from './module/user/user.service';
+import { UsersRepository } from './repositories/users.repository';
 
 
 
@@ -21,8 +23,9 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
         return addTransactionalDataSource(dataSource);
       },
     }),
+    UserModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
