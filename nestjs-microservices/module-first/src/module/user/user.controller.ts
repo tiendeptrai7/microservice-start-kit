@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { UserService } from './user.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { UserDto } from './dto/user.dto';
 
 @Controller('users')
@@ -9,6 +9,8 @@ import { UserDto } from './dto/user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiSecurity('basic')
+  @ApiBearerAuth()
   @MessagePattern({ cmd: 'get_hello' })
   @Get()
   @ApiOperation({ summary: 'Get all users' })
