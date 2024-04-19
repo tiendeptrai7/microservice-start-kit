@@ -1,9 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { UserService } from './user.service';
-import { Users } from '../../entities/users.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UserDto } from './dto';
+import { UserDto } from './dto/user.dto';
 
 @Controller('users')
 @ApiTags('users')
@@ -20,7 +19,7 @@ export class UserController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 404, description: 'Not found' })
-  getUsers(): Promise<Users[]> {
+  getUsers(): Promise<UserDto[]> {
     return this.userService.getUsers();
   }
 }
