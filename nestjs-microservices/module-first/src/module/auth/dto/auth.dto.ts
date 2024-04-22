@@ -13,11 +13,18 @@ export interface AuthPayloadRedis {
   refreshToken?: string;
   expired?: number | null;
   tokenType?: string | null;
-  userStatus?: boolean
+  userStatus?: number;
 }
 
 export interface AuthPayload {
   userId: number;
   userType: UserType
   token: string;
+}
+
+export interface AuthData {
+  accessToken?: string;
+  refreshToken?: string;
+  expired?: string;
+  tokenType?: string;
 }
