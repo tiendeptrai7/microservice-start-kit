@@ -16,6 +16,14 @@ import { AppService } from './app.service';
         transport: Transport.TCP,
         options: { port: 8878, host: 'module-second' },
       },
+      {
+        name: 'ORDERS_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: ['amqp://rabbitmq:5672'],
+          queue: 'orders-queue',
+        },
+      },
     ]),
   ],
   controllers: [AppController],
