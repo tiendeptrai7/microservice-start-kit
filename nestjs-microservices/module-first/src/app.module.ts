@@ -8,6 +8,7 @@ import { UserController } from './module/user/user.controller';
 import { UserService } from './module/user/user.service';
 import { UsersRepository } from './repositories/users.repository';
 import { RedisCacheModule } from './module/redis/redis.module';
+import { AuthModule } from './module/auth/auth.module';
 
 
 
@@ -24,6 +25,7 @@ import { RedisCacheModule } from './module/redis/redis.module';
         return addTransactionalDataSource(dataSource);
       },
     }),
+    AuthModule,
     UserModule,
     RedisCacheModule,
   ],

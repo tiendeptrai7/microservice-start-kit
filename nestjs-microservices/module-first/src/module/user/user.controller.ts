@@ -1,8 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { UserDto } from './dto/user.dto';
+import { JwtAuthGuard } from '../../vendors/guard/jwt-auth.guard';
 
 @Controller('users')
 @ApiTags('users')
@@ -21,6 +22,7 @@ export class UserController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 404, description: 'Not found' })
+  @UseGuards(JwtAuthGuard)
   getUsers(): Promise<UserDto[]> {
     return this.userService.getUsers();
   }
