@@ -46,6 +46,20 @@ services:
     networks:
       - my_network
 
+  order-module:
+    build:
+      context: .
+      dockerfile: ./order-module/Dockerfile
+    env_file: ./order-module/.env
+    environment:
+      - APP_PORT=8876
+    ports:
+      - 8888:8888
+    volumes:
+      - ./order-module:/usr/order-module
+    networks:
+      - my_network
+
   db:
     image: mysql:latest
     env_file: ./.env
@@ -68,6 +82,18 @@ services:
     image: redis
     ports:
       - $REDIS_PORT:$REDIS_PORT
+    networks:
+      - my_network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
       - my_network
 

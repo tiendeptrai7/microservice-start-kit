@@ -8,7 +8,6 @@ export class AppController {
   @Get('moduleFirst')
   getHelloModuleFirst(): any {
     return this.appService.getHelloModuleFirst();
-
   }
 
   @Get('moduleSecond')
@@ -16,4 +15,13 @@ export class AppController {
     return this.appService.getHelloModuleSecond();
   }
 
+  @Post('place-order')
+  placeOrder(@Body() order: any) {
+    return this.appService.placeOrder(order);
+  }
+
+  @Get()
+  getOrders() {
+    return this.appService.getOrders();
+  }
 }
