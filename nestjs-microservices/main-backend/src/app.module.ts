@@ -9,7 +9,7 @@ import { AppService } from './app.service';
       {
         name: 'MODULE_FIRST',
         transport: Transport.TCP,
-        options: { port: 8876, host: 'module-first' },
+        options: { port: 8876, host: 'user-module' },
       },
       {
         name: 'MODULE_SECOND',

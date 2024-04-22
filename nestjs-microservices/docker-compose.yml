@@ -32,17 +32,17 @@ services:
     networks:
       - my_network
 
-  module-first:
+  user-module:
     build:
       context: .
-      dockerfile: ./module-first/Dockerfile
-    env_file: ./module-first/.env
+      dockerfile: ./user-module/Dockerfile
+    env_file: ./user-module/.env
     environment:
       - APP_PORT=8876
     ports:
       - 8876:8876
     volumes:
-      - ./module-first:/usr/module-first
+      - ./user-module:/usr/user-module
     networks:
       - my_network
 
