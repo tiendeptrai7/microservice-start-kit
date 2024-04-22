@@ -3,7 +3,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { UserDto } from './dto/user.dto';
-import { JwtAuthGuard } from 'src/vendors/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../../vendors/guard/jwt-auth.guard';
 
 @Controller('users')
 @ApiTags('users')
