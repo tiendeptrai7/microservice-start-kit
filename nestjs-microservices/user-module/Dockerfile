@@ -1,15 +1,15 @@
 FROM node:18-alpine as builder
 
 # Create app directory
-ENV HOME=/usr/src/module-first
+ENV HOME=/usr/src/user-module
 
 WORKDIR ${HOME}
 
-COPY ./module-first/package.json ./module-first/yarn.lock ./
+COPY ./user-module/package.json ./user-module/yarn.lock ./
 
 RUN yarn
 
-COPY ./module-first .
+COPY ./user-module .
 
 EXPOSE 8875
 EXPOSE 8876
