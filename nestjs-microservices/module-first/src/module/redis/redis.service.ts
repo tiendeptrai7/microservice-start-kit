@@ -1,19 +1,12 @@
 import { isString } from 'lodash';
-import { Redis } from 'ioredis';
+import Redis from 'ioredis';
+import { InjectRedis } from '@nestjs-modules/ioredis';
 
 /**
  * Service class for interacting with Redis cache.
  */
 export class RedisCacheService {
-  private redisClient: Redis;
-
-  /**
-   * Constructs a new instance of the RedisCacheService.
-   * @param redisClient The Redis client instance.
-   */
-  constructor(redisClient: Redis) {
-    this.redisClient = redisClient;
-  }
+  constructor(@InjectRedis() private readonly redisClient: Redis) {}
 
   /**
    * Retrieves the value associated with the given key from the cache.
