@@ -1,5 +1,8 @@
 FROM node:18-alpine as builder
 
+# Install the Nest CLI globally
+RUN yarn global add @nestjs/cli
+
 # Create app directory
 ENV HOME=/usr/src/order-module
 

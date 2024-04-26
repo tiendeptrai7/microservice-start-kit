@@ -6,10 +6,12 @@ ENV HOME=/usr/src/user-module
 WORKDIR ${HOME}
 
 COPY ./user-module/package.json ./user-module/yarn.lock ./
+COPY ./user-module/ormconfig.js ./
+COPY ./user-module .
 
 RUN yarn
 
-COPY ./user-module .
+RUN yarn run build
 
 EXPOSE 8875
 EXPOSE 8876

@@ -16,10 +16,12 @@ const SUBCRIBE_PATH =
   ? 'src/subscribers/*.ts'
   : 'dist/subscribers/*.js';
 
+console.log(process.env.RDS_HOST)
+
 const dbConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   port: Number(process.env.RDS_PORT) || 3308,
-  host: '127.0.0.1',
+  host: process.env.RDS_HOST,
   username: process.env.RDS_USERNAME,
   password: process.env.RDS_PASSWORD,
   database: process.env.RDS_DATABASE,

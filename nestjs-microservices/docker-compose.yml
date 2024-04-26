@@ -2,6 +2,43 @@ version: '3.4'
 
 services:
 
+  db:
+    image: mysql:latest
+    env_file: ./.env
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin@123
+      MYSQL_DATABASE: $RDS_DATABASE
+      MYSQL_USER: $RDS_USERNAME
+      MYSQL_PASSWORD: $RDS_PASSWORD
+      MYSQL_TCP_PORT: $RDS_PORT
+    ports:
+      - $RDS_PORT:$RDS_PORT
+    logging:
+      driver: none
+    networks:
+      - my_network
+    command: mysqld --innodb_use_native_aio=0 --default-authentication-plugin=caching_sha2_password --sql_mode=""
+
+  redis:
+    image: redis
+    ports:
+      - $REDIS_PORT:$REDIS_PORT
+    networks:
+      - my_network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - $RABBITMQ_PORT:$RABBITMQ_PORT
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - my_network
+
   main-backend:
     build:
       context: .
@@ -42,9 +79,14 @@ services:
     ports:
       - 8876:8876
     volumes:
-      - ./user-module:/usr/user-module
+      - ./user-module:/usr/src/user-module    
     networks:
       - my_network
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   order-module:
     build:
@@ -52,48 +94,11 @@ services:
       dockerfile: ./order-module/Dockerfile
     env_file: ./order-module/.env
     environment:
-      - APP_PORT=8876
+      - APP_PORT=8888
     ports:
       - 8888:8888
     volumes:
-      - ./order-module:/usr/order-module
-    networks:
-      - my_network
-
-  db:
-    image: mysql:latest
-    env_file: ./.env
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: admin@123
-      MYSQL_DATABASE: $RDS_DATABASE
-      MYSQL_USER: $RDS_USERNAME
-      MYSQL_PASSWORD: $RDS_PASSWORD
-      MYSQL_TCP_PORT: $RDS_PORT
-    ports:
-      - $RDS_PORT:$RDS_PORT
-    logging:
-      driver: none
-    networks:
-      - my_network
-    command: mysqld --innodb_use_native_aio=0 --default-authentication-plugin=caching_sha2_password --sql_mode=""
-
-  redis:
-    image: redis
-    ports:
-      - $REDIS_PORT:$REDIS_PORT
-    networks:
-      - my_network
-
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
-    ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      - ./order-module:/usr/src/order-module
     networks:
       - my_network
 
